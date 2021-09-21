@@ -11,6 +11,6 @@ namespace Business.Interfaces
         Task<PersonajeDTO> GetPersonajeByIdDTO(int id);
         Task<Personaje> PostPersonaje(PersonajeDTO personajeDTO);
         Task<Personaje> UpdatePersonaje(int id, PersonajeDTO personajeDTO);
-        bool DeletePersonaje(int id);
+        Task<bool> DeletePersonaje(int id);
     }
 }

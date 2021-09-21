@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppDisney.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
     [ApiController]
 
@@ -51,7 +51,7 @@ namespace AppDisney.Controllers
         [HttpDelete("{id}")]
         public async Task<String> Delete(int id)
         {
-            var result = _personajeService.DeletePersonaje(id);
+            var result = await _personajeService.DeletePersonaje(id);
             return result == true ? "Se elimino correctamente" : "No se elimino";            
         }
     }

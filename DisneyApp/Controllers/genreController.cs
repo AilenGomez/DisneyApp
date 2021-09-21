@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AppDisney.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
     [ApiController]
     public class genreController : ControllerBase
@@ -43,9 +43,9 @@ namespace AppDisney.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, GeneroDTO generoDTO)
+        public async Task<IActionResult> Put( GeneroDTO generoDTO)
         {
-            var result = _generoService.UpdateGenero(id, generoDTO);
+            var result = _generoService.UpdateGenero( generoDTO);
             return Ok(result);
         }
 
@@ -53,7 +53,7 @@ namespace AppDisney.Controllers
         public async Task<String> Delete(int id)
         {
             var result = _generoService.DeleteGenero(id);
-            return result == true ? "Se elimino correctamente" : "No se elimino";
+            return await result == true ? "Se elimino correctamente" : "No se elimino";
 
         }
     }

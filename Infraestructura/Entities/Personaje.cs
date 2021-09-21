@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infraestructura.Entities
 {
-    public partial class Personaje
+    public partial class Personaje : BaseEntity
     {
         public Personaje()
         {
@@ -15,7 +15,6 @@ namespace Infraestructura.Entities
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Nombre { get; set; }
         public int? Edad { get; set; }
         public long? Peso { get; set; }

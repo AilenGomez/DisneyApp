@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infraestructura.Entities
 {
-    public partial class Rodaje
+    public partial class Rodaje : BaseEntity
     {
         public Rodaje()
         {
@@ -16,7 +16,6 @@ namespace Infraestructura.Entities
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int idRodaje { get; set; }
         public string Titulo { get; set; }
         public DateTime? FechaCreacion { get; set; }
         public int? Calificacion { get; set; }

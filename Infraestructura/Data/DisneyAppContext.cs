@@ -31,9 +31,9 @@ namespace Infraestructura.Entities
             {
                 entity.ToTable("Genero");
 
-                entity.HasKey(e => e.Id);
+                entity.HasKey(e => e.id);
 
-                entity.Property(e => e.Id)
+                entity.Property(e => e.id)
                       .HasColumnName("idGenero");
 
                 entity.Property(e => e.Nombre)
@@ -53,9 +53,9 @@ namespace Infraestructura.Entities
             {
                 entity.ToTable("Personaje");
 
-                entity.HasKey(e => e.Id);
+                entity.HasKey(e => e.id);
 
-                entity.Property(e => e.Id).HasColumnName("idPersonaje");
+                entity.Property(e => e.id).HasColumnName("idPersonaje");
 
                 entity.Property(e => e.Edad).HasColumnName("edad");
 
@@ -83,9 +83,9 @@ namespace Infraestructura.Entities
             {
                 entity.ToTable("Rodaje");
 
-                entity.HasKey(e => e.idRodaje);
+                entity.HasKey(e => e.id);
 
-                entity.Property(e => e.idRodaje).HasColumnName("idRodaje");
+                entity.Property(e => e.id).HasColumnName("idRodaje");
 
                 entity.Property(e => e.Calificacion).HasColumnName("calificacion");
 
@@ -110,9 +110,9 @@ namespace Infraestructura.Entities
             {
                 entity.ToTable("Segruidad");
 
-                entity.HasKey(e => e.idUser);
+                entity.HasKey(e => e.id);
 
-                entity.Property(e => e.idUser)
+                entity.Property(e => e.id)
                       .HasColumnName("idUser");
 
                 entity.Property(e => e.User)

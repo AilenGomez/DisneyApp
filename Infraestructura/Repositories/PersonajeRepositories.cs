@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infraestructura.Repositories
 {
-    public class PersonajeRepositories : IPersonajeRepositories
+    public class PersonajeRepositories : IPersonajeRepositories 
     {
         public DisneyAppContext _context;
 
@@ -35,33 +35,5 @@ namespace Infraestructura.Repositories
             return result;
         }
 
-        public async Task<Personaje> GetPersonajeById(int id)
-        {
-            var result = _context.Personajes.FirstOrDefault(Personaje => Personaje.Id == id);
-            return result;
-        }
-        public async Task CreatePersonaje(Personaje personaje)
-        {
-             _context.Personajes.Add(personaje);
-           await _context.SaveChangesAsync();
-            
-        }
-        public async Task<Personaje> UpdatePersonaje(int id, Personaje personaje)
-        {
-            var currentPersonaje = _context.Personajes.Where(pers => pers.Id == id).FirstOrDefault();
-            currentPersonaje.Nombre = personaje.Nombre;
-            currentPersonaje.Edad = personaje.Edad;
-            currentPersonaje.Historia = personaje.Historia;
-            currentPersonaje.Peso = personaje.Peso;
-            await _context.SaveChangesAsync();
-            return currentPersonaje;           
-        }
-        public bool DeletePersonaje(int id)
-        {
-            var currentPersonaje = _context.Personajes.Where(pers => pers.Id == id).FirstOrDefault();
-            _context.Personajes.Remove(currentPersonaje);
-            int rows = _context.SaveChanges();
-            return rows > 0;
-        }
     }
 }

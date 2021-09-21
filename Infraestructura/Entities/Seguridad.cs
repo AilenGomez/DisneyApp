@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Infraestructura.Entities
 {
-    public class Seguridad
+    public class Seguridad : BaseEntity
     {
-        public int idUser { get; set; }
         public string User { get; set; }
         public string email { get; set; }
         public string UserName { get; set; }

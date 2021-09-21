@@ -13,41 +13,41 @@ namespace Business.Servicies
 {
     public class GeneroService : IGeneroService
     {
-        private readonly IGeneroRepositories _generoRepository;
+        private readonly IRepository<Genero> _generoRepository;
         private readonly IMapper _mapper;
 
-        public GeneroService(IGeneroRepositories generoRepository, IMapper mapper)
+        public GeneroService(IRepository<Genero> generoRepository, IMapper mapper)
         {
             _generoRepository = generoRepository;
             _mapper = mapper;
         }
         public async Task<IEnumerable<GeneroDTO>> GetAllGenerosDTO()
         {
-            var result = await _generoRepository.GetAllGeneros();
+            var result = await _generoRepository.GetAll();
             var generoDTO = _mapper.Map<IEnumerable<GeneroDTO>>(result);
            return generoDTO;
         }
         public async Task<GeneroDTO> GetGeneroByIdDTO(int id)
         {
-            var result = await _generoRepository.GetGeneroById(id);
+            var result = await _generoRepository.GetById(id);
             var generoDTO = _mapper.Map<GeneroDTO>(result);
             return generoDTO;
         }
         public async Task<Genero> PostGenero(GeneroDTO generoDTO)
         {
             var genero = _mapper.Map<Genero>(generoDTO);
-            var result = _generoRepository.CreateGenero(genero);
+            var result = _generoRepository.Create(genero);
             return genero;
         }
-        public async Task<Genero> UpdateGenero(int id, GeneroDTO generoDTO)
+        public async Task<Genero> UpdateGenero(GeneroDTO generoDTO)
         {
             var genero = _mapper.Map<Genero>(generoDTO);
-            var result = _generoRepository.UpdateGenero(id, genero);
+            var result = _generoRepository.Update(genero);
             return genero;
         }
-        public bool DeleteGenero(int id)
+        public Task<bool> DeleteGenero(int id)
         {
-            var result = _generoRepository.DeleteGenero(id);
+            var result = _generoRepository.Delete(id);
             return result;
         }
 

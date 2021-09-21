@@ -13,24 +13,26 @@ namespace Business.Servicies
 {
     public class RodajeService : IRodajeService
     {
-        private readonly IRodajeRepositories _rodajeRepository;
+        private readonly IRodajeRepositories _rodajesRepository;
+        private readonly IRepository<Rodaje> _rodajeRepository;
         private readonly IMapper _mapper;
 
 
-        public RodajeService(IRodajeRepositories rodajeRepository, IMapper mapper)
+        public RodajeService(IRodajeRepositories rodajesRepository, IMapper mapper, IRepository<Rodaje> rodajeRepository)
         {
+            _rodajesRepository = rodajesRepository;
             _rodajeRepository = rodajeRepository;
             _mapper = mapper;
         }
         public async Task<IEnumerable<RodajeDTO>> GetAllRodajesDTO(string name, int? genre, string order)
         {
-            var result = await _rodajeRepository.GetAllRodajes(name, genre,order);
+            var result = await _rodajesRepository.GetAllRodajes(name, genre,order);
             var rodajeDTO = _mapper.Map<IEnumerable<RodajeDTO>>(result);
             return rodajeDTO;
         }
         public async Task<RodajeDTO> GetRodajeByIdDTO(int id)
         {
-            var result = await _rodajeRepository.GetRodajeById(id);
+            var result = await _rodajeRepository.GetById(id);
             var rodajeDTO = _mapper.Map<RodajeDTO>(result);
             return rodajeDTO;
         }
@@ -38,18 +40,18 @@ namespace Business.Servicies
         public async Task<Rodaje> PostRodaje(RodajeDTO rodajeDTO)
         {
             var rodaje = _mapper.Map<Rodaje>(rodajeDTO);
-            var result = _rodajeRepository.CreateRodaje(rodaje);
+            var result = _rodajeRepository.Create(rodaje);
             return rodaje;
         }
-        public async Task<Rodaje> UpdateRodaje(int id, RodajeDTO rodajeDTO)
+        public async Task<Rodaje> UpdateRodaje(RodajeDTO rodajeDTO)
         {
             var rodaje = _mapper.Map<Rodaje>(rodajeDTO);
-            var result = _rodajeRepository.UpdateRodaje(id, rodaje);
+            var result = _rodajeRepository.Update(rodaje);
             return rodaje;
         }
-        public bool DeleteRodaje(int id)
+        public Task<bool> DeleteRodaje(int id)
         {
-            var result = _rodajeRepository.DeleteRodaje(id);
+            var result = _rodajeRepository.Delete(id);
             return result;
         }
 

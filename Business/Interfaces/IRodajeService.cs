@@ -10,7 +10,7 @@ namespace Business.Interfaces
         public Task<IEnumerable<RodajeDTO>> GetAllRodajesDTO(string name, int? genre, string order);
         public Task<RodajeDTO> GetRodajeByIdDTO(int id);
         Task<Rodaje> PostRodaje(RodajeDTO rodajeDTO);
-        Task<Rodaje> UpdateRodaje(int id, RodajeDTO rodajeDTO);
-        bool DeleteRodaje(int id);
+        Task<Rodaje> UpdateRodaje(RodajeDTO rodajeDTO);
+        Task<bool> DeleteRodaje(int id);
     }
 }

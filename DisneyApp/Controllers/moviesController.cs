@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AppDisney.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
     [ApiController]
     public class moviesController : ControllerBase
@@ -45,7 +45,7 @@ namespace AppDisney.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id,RodajeDTO rodajeDTO)
         {
-            var result = _rodajeService.UpdateRodaje(id, rodajeDTO);
+            var result = _rodajeService.UpdateRodaje(rodajeDTO);
             return Ok(result);
         }
 
@@ -53,7 +53,7 @@ namespace AppDisney.Controllers
         public async Task<String> Delete(int id)
         {
             var result = _rodajeService.DeleteRodaje(id);
-            return result == true ? "Se elimino correctamente" : "No se elimino";
+            return await result == true ? "Se elimino correctamente" : "No se elimino";
 
         }
     }
