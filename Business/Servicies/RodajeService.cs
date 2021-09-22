@@ -43,9 +43,10 @@ namespace Business.Servicies
             var result = _rodajeRepository.Create(rodaje);
             return rodaje;
         }
-        public async Task<Rodaje> UpdateRodaje(RodajeDTO rodajeDTO)
+        public async Task<Rodaje> UpdateRodaje(int id,RodajeDTO rodajeDTO)
         {
             var rodaje = _mapper.Map<Rodaje>(rodajeDTO);
+            rodaje.id = id;
             var result = _rodajeRepository.Update(rodaje);
             return rodaje;
         }

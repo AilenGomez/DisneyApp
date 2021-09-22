@@ -14,8 +14,6 @@ namespace Infraestructura.Entities
             Generos = new HashSet<Genero>();
             Personajes = new HashSet<Personaje>();
         }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Titulo { get; set; }
         public DateTime? FechaCreacion { get; set; }
         public int? Calificacion { get; set; }

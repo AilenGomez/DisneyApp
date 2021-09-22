@@ -13,8 +13,6 @@ namespace Infraestructura.Entities
         {
             Rodajes = new HashSet<Rodaje>();
         }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Nombre { get; set; }
         public int? Edad { get; set; }
         public long? Peso { get; set; }

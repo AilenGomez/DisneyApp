@@ -10,7 +10,7 @@ namespace Business.Interfaces
         public Task<IEnumerable<GeneroDTO>> GetAllGenerosDTO();
         public Task<GeneroDTO> GetGeneroByIdDTO(int id);
         Task<Genero> PostGenero(GeneroDTO generoDTO);
-        Task<Genero> UpdateGenero(GeneroDTO generoDTO);
+        Task<Genero> UpdateGenero(int id,GeneroDTO generoDTO);
         Task<bool> DeleteGenero(int id);
     }
 }

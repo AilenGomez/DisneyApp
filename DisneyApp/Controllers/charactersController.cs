@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppDisney.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
 

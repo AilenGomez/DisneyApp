@@ -39,9 +39,10 @@ namespace Business.Servicies
             var result = _generoRepository.Create(genero);
             return genero;
         }
-        public async Task<Genero> UpdateGenero(GeneroDTO generoDTO)
+        public async Task<Genero> UpdateGenero(int id, GeneroDTO generoDTO)
         {
             var genero = _mapper.Map<Genero>(generoDTO);
+            genero.id = id;
             var result = _generoRepository.Update(genero);
             return genero;
         }

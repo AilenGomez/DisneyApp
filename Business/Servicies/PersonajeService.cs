@@ -45,6 +45,7 @@ namespace Business.Servicies
         public async Task<Personaje> UpdatePersonaje(int id, PersonajeDTO personajeDTO)
         {
             var personaje = _mapper.Map<Personaje>(personajeDTO);
+            personaje.id = id;
             var result = _personajeRepository.Update(personaje);
             return personaje;
         }

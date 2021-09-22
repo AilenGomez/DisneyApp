@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AppDisney.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class genreController : ControllerBase
@@ -43,9 +43,9 @@ namespace AppDisney.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put( GeneroDTO generoDTO)
+        public async Task<IActionResult> Put(int id, GeneroDTO generoDTO)
         {
-            var result = _generoService.UpdateGenero( generoDTO);
+            var result = _generoService.UpdateGenero(id, generoDTO);
             return Ok(result);
         }
 

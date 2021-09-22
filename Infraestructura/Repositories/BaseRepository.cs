@@ -40,11 +40,8 @@ namespace Infraestructura.Repositories
         }   
         public async Task Update( T entity)
         {
-            _entities.Attach(entity);
-            var entry = _context.Entry(entity);
-            entry.State = EntityState.Modified;
-            _context.SaveChanges();
-            
+            _entities.Update(entity);
+            _context.SaveChanges();        
         }
     }
 }
