@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Business.CustomEntities;
 using Business.Dtos;
 using Business.Interfaces;
+using Business.QueryFilters;
 using Infraestructura.Entities;
 using Infraestructura.Interfaces;
 using System;
@@ -14,19 +16,30 @@ namespace Business.Servicies
     public class PersonajeService : IPersonajeService
     {
         private readonly IRepository<Personaje> _personajeRepository;
-        private readonly IPersonajeRepositories _personajesRepository;
         private readonly IMapper _mapper;
 
-        public PersonajeService(IRepository<Personaje> personajeRepository, IMapper mapper, IPersonajeRepositories personajesRepositories)
+        public PersonajeService(IRepository<Personaje> personajeRepository, IMapper mapper)
         {
             _personajeRepository = personajeRepository;
-            _personajesRepository = personajesRepositories;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<PersonajeDTO>> GetAllPersonajeDTO(string name, int? movie, int? age)
+        public async Task<IEnumerable<PersonajeDTO>> GetAllPersonajeDTO(CharactersQueryFilter filters)
         {
-            var result = await _personajesRepository.GetAllPersonaje(name, movie, age);
-            var personajesDTO = _mapper.Map<IEnumerable<PersonajeDTO>>(result);
+            var result = await _personajeRepository.GetAll();
+            if (filters.name != null)
+            {
+                result = result.Where(Personaje => Personaje.Nombre == filters.name).ToList();
+            }
+            if (filters.movies != null)
+            {
+                result = result.Where(Personaje => Personaje.idRodaje == filters.movies).ToList();
+            }
+            if (filters.age != null)
+            {
+                result = result.Where(Personaje => Personaje.Edad == filters.age).ToList();
+            }
+            var pagedPersonajes = PagedList<Personaje>.Create(result, filters.pageNumber, filters.pageSize);
+            var personajesDTO = _mapper.Map<IEnumerable<PersonajeDTO>>(pagedPersonajes);
             return personajesDTO;
         }
         public async Task<PersonajeDTO> GetPersonajeByIdDTO(int id)

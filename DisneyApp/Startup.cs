@@ -37,9 +37,9 @@ namespace DisneyApp
 
             services.AddDbContext<DisneyAppContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DisneyApp")));
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddScoped<IPersonajeRepositories, PersonajeRepositories>();
+            //services.AddScoped<IPersonajeRepositories, PersonajeRepositories>();
             //services.AddScoped<IGeneroRepositories, GeneroRepositories>();
-            services.AddScoped<IRodajeRepositories, RodajeRepositories>();
+            //services.AddScoped<IRodajeRepositories, RodajeRepositories>();
             services.AddScoped<ISeguridadRepositories, SeguridadRepositories>();
             services.AddScoped<IPersonajeService, PersonajeService>();
             services.AddScoped<IRodajeService, RodajeService>();

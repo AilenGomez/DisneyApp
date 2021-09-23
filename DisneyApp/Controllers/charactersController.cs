@@ -1,5 +1,6 @@
 ﻿using Business.Dtos;
 using Business.Interfaces;
+using Business.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,9 +23,9 @@ namespace AppDisney.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string name, int? movie, int? age)
+        public async Task<IActionResult> Get([FromQuery] CharactersQueryFilter filters)
         {
-            var result = await _personajeService.GetAllPersonajeDTO(name, movie, age);
+            var result = await _personajeService.GetAllPersonajeDTO(filters);
             return Ok(result);
         }
      

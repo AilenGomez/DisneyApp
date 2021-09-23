@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Business.CustomEntities;
 using Business.Dtos;
 using Business.Interfaces;
+using Business.QueryFilters;
 using Infraestructura.Entities;
 using Infraestructura.Interfaces;
 using System;
@@ -21,10 +23,11 @@ namespace Business.Servicies
             _generoRepository = generoRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<GeneroDTO>> GetAllGenerosDTO()
+        public async Task<IEnumerable<GeneroDTO>> GetAllGenerosDTO(GenreQueryFilter filters)
         {
             var result = await _generoRepository.GetAll();
-            var generoDTO = _mapper.Map<IEnumerable<GeneroDTO>>(result);
+            var pagedGenero = PagedList<Genero>.Create(result, filters.pageNumber, filters.pageSize);
+            var generoDTO = _mapper.Map<IEnumerable<GeneroDTO>>(pagedGenero);
            return generoDTO;
         }
         public async Task<GeneroDTO> GetGeneroByIdDTO(int id)

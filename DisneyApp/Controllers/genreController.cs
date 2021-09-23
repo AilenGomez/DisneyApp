@@ -1,5 +1,6 @@
 ﻿using Business.Dtos;
 using Business.Interfaces;
+using Business.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,9 +23,9 @@ namespace AppDisney.Controllers
             _generoService = generoService;
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] GenreQueryFilter filters)
         {
-            var result = await _generoService.GetAllGenerosDTO();
+            var result = await _generoService.GetAllGenerosDTO(filters);
             return Ok(result);
         }
 

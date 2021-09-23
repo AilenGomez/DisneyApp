@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Business.CustomEntities;
 using Business.Dtos;
 using Business.Interfaces;
+using Business.QueryFilters;
 using Infraestructura.Entities;
 using Infraestructura.Interfaces;
 using System;
@@ -13,21 +15,36 @@ namespace Business.Servicies
 {
     public class RodajeService : IRodajeService
     {
-        private readonly IRodajeRepositories _rodajesRepository;
         private readonly IRepository<Rodaje> _rodajeRepository;
         private readonly IMapper _mapper;
 
 
-        public RodajeService(IRodajeRepositories rodajesRepository, IMapper mapper, IRepository<Rodaje> rodajeRepository)
+        public RodajeService(IMapper mapper, IRepository<Rodaje> rodajeRepository)
         {
-            _rodajesRepository = rodajesRepository;
             _rodajeRepository = rodajeRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<RodajeDTO>> GetAllRodajesDTO(string name, int? genre, string order)
+        public async Task<IEnumerable<RodajeDTO>> GetAllRodajesDTO(MovieQueryFilter filters)
         {
-            var result = await _rodajesRepository.GetAllRodajes(name, genre,order);
-            var rodajeDTO = _mapper.Map<IEnumerable<RodajeDTO>>(result);
+            var result = await _rodajeRepository.GetAll();
+            if (filters.name != null)
+            {
+                result = result.Where(Rodaje => Rodaje.Titulo == filters.name).ToList();
+            }
+            if (filters.order != null)
+            {
+                if (filters.order == "ASC")
+                {
+                    result = result.OrderBy(x => x.FechaCreacion).ToList();
+                }
+                else if (filters.order == "DESC")
+                {
+                    result = result.OrderByDescending(x => x.FechaCreacion).ToList();
+                }
+
+            }
+            var pagedRodaje = PagedList<Rodaje>.Create(result, filters.pageNumber, filters.pageSize);
+            var rodajeDTO = _mapper.Map<IEnumerable<RodajeDTO>>(pagedRodaje);
             return rodajeDTO;
         }
         public async Task<RodajeDTO> GetRodajeByIdDTO(int id)

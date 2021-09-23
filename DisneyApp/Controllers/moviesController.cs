@@ -1,5 +1,6 @@
 ﻿using Business.Dtos;
 using Business.Interfaces;
+using Business.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,9 +22,9 @@ namespace AppDisney.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]string name, int? genre, string order)
+        public async Task<IActionResult> Get([FromQuery] MovieQueryFilter filters)
         {
-            var result = await _rodajeService.GetAllRodajesDTO(name, genre,order);
+            var result = await _rodajeService.GetAllRodajesDTO(filters);
             return Ok(result);
 
         }
